@@ -1,7 +1,7 @@
 import type * as Login from "./types/login"
 import { request } from "@/http/axios"
 
-const base_url = import.meta.env.VITE_BASE_API
+const base_url = import.meta.env.VITE_BASE_URL
 
 /** 登录并返回 Token */
 export function loginApi(data: Login.LoginRequestData) {
