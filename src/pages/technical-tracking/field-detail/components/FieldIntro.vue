@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { Back, InfoFilled } from "@element-plus/icons-vue"
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
+import { useTagsViewStore } from "@/pinia/stores/tags-view"
 import TrendChart from "../../information-tracking/components/TrendChart.vue"
 
+const route = useRoute()
 const router = useRouter()
+const tagsViewStore = useTagsViewStore()
 
 function goBack() {
+  // 关闭当前标签页缓存与记录
+  tagsViewStore.delVisitedView(route)
+  tagsViewStore.delCachedView(route)
+  // 执行返回
   router.back()
 }
 
@@ -19,10 +26,10 @@ const trendData = [5000, 3000, 1000, 800, 4000, 1500, 1500, 55000, 4000, 1500]
     <!-- Header -->
     <div class="px-24px py-20px flex items-center justify-between">
       <div class="flex items-start gap-24px">
-        <div class="flex items-center gap-4px text-gray-500 cursor-pointer pt-6px hover:text-blue-500 transition-colors" @click="goBack">
+        <!-- <div class="flex items-center gap-4px text-gray-500 cursor-pointer pt-6px hover:text-blue-500 transition-colors" @click="goBack">
           <el-icon><Back /></el-icon>
           <span class="text-14px">返回</span>
-        </div>
+        </div> -->
         <div>
           <div class="text-24px font-bold text-gray-800 mb-6px">
             虚拟电厂
@@ -62,11 +69,6 @@ const trendData = [5000, 3000, 1000, 800, 4000, 1500, 1500, 55000, 4000, 1500]
 
       <!-- Right: Chart placeholder -->
       <div class="w-400px shrink-0 flex flex-col border-l border-solid border-gray-100 pl-48px">
-        <div class="flex gap-8px mb-16px">
-          <span class="px-16px py-6px rounded-full text-12px cursor-pointer bg-gray-100 text-gray-500">近7天</span>
-          <span class="px-16px py-6px rounded-full text-12px cursor-pointer bg-[#EBFCF2] text-[#00A854] font-bold">近30天</span>
-          <span class="px-16px py-6px rounded-full text-12px cursor-pointer bg-gray-100 text-gray-500">全部</span>
-        </div>
         <div class="flex-1 w-full min-h-200px">
           <TrendChart :x-axis-data="xAxisData" :trend-data="trendData" />
         </div>
