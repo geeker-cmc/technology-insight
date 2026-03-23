@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { BottomRight, DataLine, Document, Search, Star, StarFilled, TopRight } from "@element-plus/icons-vue"
 import { ref } from "vue"
+import { useRouter } from "vue-router"
 import RankingSidebar from "./components/RankingSidebar.vue"
 import TrendChart from "./components/TrendChart.vue"
 
+const router = useRouter()
 const searchQuery = ref("")
 
 function handleSearch() {
   // TODO: 这里可以替换为实际的搜索过滤逻辑
   console.log("执行搜索，关键字: ", searchQuery.value)
+}
+
+function goToDetail(article: any) {
+  router.push({ name: "FieldDetail" })
 }
 
 const categoryList = [
@@ -113,14 +119,15 @@ const articleList = [
             <div
               v-for="(article, index) in articleList"
               :key="index"
-              class="bg-white rounded-12px p-20px shadow-sm flex flex-col border border-solid border-gray-100"
+              class="bg-white rounded-12px p-20px shadow-sm flex flex-col border border-solid border-gray-100 cursor-pointer"
+              @click="goToDetail(article)"
             >
               <!-- 顶部标签与收藏 -->
               <div class="flex items-center justify-between mb-16px">
                 <span class="bg-[#EAEBFC] text-[#555CB5] text-14px px-12px py-6px rounded-4px font-bold">
                   {{ article.category }}
                 </span>
-                <el-icon class="text-gray-600 cursor-pointer" :size="24" :class="{ 'text-yellow-500': article.stars === 5 }">
+                <el-icon class="text-gray-600 cursor-pointer" :size="24" :class="{ 'text-yellow-500': article.stars === 5 }" @click.stop="() => {}">
                   <StarFilled v-if="article.stars === 5" />
                   <Star v-else />
                 </el-icon>
@@ -148,6 +155,7 @@ const articleList = [
                       v-for="(news, idx) in article.newsList"
                       :key="idx"
                       class="flex justify-between items-start gap-8px cursor-pointer"
+                      @click.stop="() => {}"
                     >
                       <span class="text-12px text-gray-700 leading-snug flex-1 line-clamp-3">{{ news.title }}</span>
                       <span class="text-12px text-gray-500 whitespace-nowrap pt-2px">{{ news.date }}</span>
