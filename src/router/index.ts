@@ -93,6 +93,14 @@ export const constantRoutes: RouteRecordRaw[] = [
         title: "编辑日报",
         hidden: true
       }
+    }, {
+      path: "field-detail",
+      component: () => import("@/pages/technical-tracking/field-detail/index.vue"),
+      name: "FieldDetail",
+      meta: {
+        title: "领域详情",
+        hidden: true
+      }
     }]
   },
   {
