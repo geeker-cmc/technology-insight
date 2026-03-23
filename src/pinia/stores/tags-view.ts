@@ -22,6 +22,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   const addVisitedView = (view: TagView) => {
     // 检查是否已经存在相同的 visitedView
     const index = visitedViews.value.findIndex(v => v.path === view.path)
+
     if (index !== -1) {
       // 防止 query 参数丢失
       visitedViews.value[index].fullPath !== view.fullPath && (visitedViews.value[index] = { ...view })

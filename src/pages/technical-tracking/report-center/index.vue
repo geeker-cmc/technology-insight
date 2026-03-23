@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
 
 const reportCategories = [
   {
@@ -77,6 +80,11 @@ const reportList = [
     time: "08:30"
   }
 ]
+
+/** 跳转至编辑日报页面 */
+function handleGenerateReport() {
+  router.push("/technical-tracking/edit-daily-report")
+}
 </script>
 
 <template>
@@ -204,7 +212,7 @@ const reportList = [
             <el-button type="primary" class="flex-1">
               查询信息
             </el-button>
-            <el-button type="success" class="flex-1">
+            <el-button type="success" class="flex-1" @click="handleGenerateReport">
               生成日报
             </el-button>
           </div>

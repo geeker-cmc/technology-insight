@@ -85,6 +85,14 @@ export const constantRoutes: RouteRecordRaw[] = [
       meta: {
         title: "报告中心"
       }
+    }, {
+      path: "edit-daily-report",
+      component: () => import("@/pages/technical-tracking/edit-daily-report/index.vue"),
+      name: "EditDailyReport",
+      meta: {
+        title: "编辑日报",
+        hidden: true
+      }
     }]
   },
   {
@@ -140,7 +148,6 @@ export const constantRoutes: RouteRecordRaw[] = [
       meta: {
         title: "专题研究"
       }
-
     }]
   }
   // {
